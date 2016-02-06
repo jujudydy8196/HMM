@@ -53,7 +53,22 @@ if __name__ == "__main__":
                         emission[tag]=p2_1emission(w,tag,hmm,countTag)
                 if all(val==0 for val in emission.values()):
                     for tag in hmm.all_states:
-                        emission[tag]=p2_1emission("_RARE_",tag,hmm,countTag)
+                        if int(sys.argv[3]) == 1:
+                            emission[tag]=p2_1emission("_RARE_",tag,hmm,countTag)
+                            #print "hay"
+                        elif int(sys.argv[3]) == 4:
+                            if w.isdigit():
+                                emission[tag]=p2_1emission("_Numeric_",tag,hmm,countTag)
+                            elif w.isalpha() and w.isupper():
+                                emission[tag]=p2_1emission("_AllCapitals_",tag,hmm,countTag)
+                            elif w.isalpha() and w[-1].isupper():
+                                emission[tag]=p2_1emission("_LastCapital_",tag,hmm,countTag)
+                            else:
+                                emission[tag]=p2_1emission("_RARE_",tag,hmm,countTag)
+                        else:
+                            print "unvalid arg[3]"
+                #print w + " emission: "
+                #print w + " emission: "
                 #print w + " emission: "
                 #print emission
                 for pair in pairs:
